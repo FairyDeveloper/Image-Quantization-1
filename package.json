@@ -1,0 +1,118 @@
+{
+  "name": "image-q",
+  "version": "2.1.2",
+  "description": "Image Quantization Library in **TypeScript** *(MIT Licensed)*",
+  "license": "MIT",
+  "contributors": [],
+  "homepage": "https://github.com/ibezkrovnyi/image-quantization",
+  "main": "dist/umd/image-q.js",
+  "module": "dist/esm/image-q.js",
+  "types": "dist/esm/image-q.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "test": "npm run lint && jest --maxWorkers=2 --env=node",
+    "build": "tsc --outDir dist/esm && tsc -m commonjs -t es5 --outDir dist/cjs && rollup -i dist/cjs/image-q.js -o dist/umd/image-q.js -f umd -n image-q --config",
+    "test:watch": "jest --watch --env=node",
+    "deploy": "npm update && npm run lint && jest && npm run build && npm run gh-pages && npm version patch && git push --follow-tags && npm publish",
+    "lint": "eslint \"./src/**/*\"",
+    "gh-pages": "rimraf ./docs && typedoc.cmd src && gh-pages -d docs",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+  },
+  "files": [
+    "dist"
+  ],
+  "jest": {
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/tests"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "./tests/tsconfig.json",
+        "skipBabel": true
+      }
+    },
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(test|spec)\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov",
+      "text-summary",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ]
+  },
+  "preferGlobal": false,
+  "keywords": [
+    "image",
+    "palette",
+    "quantization",
+    "quantizer",
+    "color",
+    "neuquant",
+    "rgbquant",
+    "xiaolin wu",
+    "cie94 distance",
+    "ciede2000",
+    "dithering",
+    "floyd-steinberg"
+  ],
+  "author": "Igor Bezkrovny",
+  "engines": {
+    "node": ">=0.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibezkrovnyi/image-quantization"
+  },
+  "bugs": {
+    "url": "https://github.com/ibezkrovnyi/image-quantization/issues"
+  },
+  "devDependencies": {
+    "@ibezkrovnyi/tslint-rules": "0.0.3",
+    "@types/core-js": "2.5.0",
+    "@types/jest": "22.2.0",
+    "@types/pngjs": "3.3.0",
+    "@typescript-eslint/eslint-plugin": "^1.5.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^1.5.0",
+    "@typescript-eslint/parser": "^1.5.0",
+    "core-js": "2.5.4",
+    "coveralls": "3.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "gh-pages": "1.2.0",
+    "jest": "22.4.0",
+    "pngjs": "3.3.3",
+    "prettier": "^1.16.4",
+    "rimraf": "*",
+    "rollup": "0.57.0",
+    "rollup-plugin-commonjs": "9.1.0",
+    "rollup-plugin-local-resolve": "1.0.7",
+    "rollup-plugin-node-resolve": "3.3.0",
+    "ts-jest": "22.4.2",
+    "tslint": "5.9.1",
+    "tslint-config-airbnb": "5.8.0",
+    "tslint-consistent-codestyle": "1.12.0",
+    "tslint-language-service": "0.9.9",
+    "typedoc": "0.11.1",
+    "typescript": "3.4.1"
+  },
+  "dependencies": {
+    "@types/node": "9.6.0"
+  }
+}
